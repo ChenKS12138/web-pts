@@ -1,0 +1,32 @@
+{
+  "name": "web-pty",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "start": "node app/app.js",
+    "compile": "cmake-js -d addon -O addon/build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/koa-router": "^7.4.4",
+    "@types/koa-static": "^4.0.2",
+    "@types/koa-websocket": "^5.0.7",
+    "@types/node": "^16.11.7",
+    "@types/nunjucks": "^3.2.0",
+    "@types/ws": "^8.2.0",
+    "cmake-js": "^6.2.1",
+    "nan": "^2.15.0"
+  },
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-nunjucks-2": "^3.0.2",
+    "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0",
+    "koa-websocket": "^6.0.0",
+    "nunjucks": "^3.2.3"
+  }
+}
