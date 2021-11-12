@@ -14,18 +14,18 @@ void err_exit(const char* msg) {
 
 int fd_add_cloexec(int fd) {
     int flags;
-    if ((flags = fcntl(fd, F_GETFL)) == -1) {
+    if ((flags = fcntl(fd, F_GETFD)) == -1) {
         pts_fatal("fcntl");
         return -1;
     };
-    flags |= O_CLOEXEC;
-    return fcntl(fd, F_SETFL, flags);
+    flags |= FD_CLOEXEC;
+    return fcntl(fd, F_SETFD, flags);
+    return 0;
 }
 
 int create_pts(int* child_pid_ptr) {
     int master_tty_fd, slave_tty_fd, child_pid;
     char slave_tty_name[FILENAME_MAX], *str, *shell;
-    struct termios slave_tio;
     struct sigaction sia;
 
     if (child_pid_ptr == NULL) {
@@ -51,10 +51,6 @@ int create_pts(int* child_pid_ptr) {
     }
     if ((shell = getenv("SHELL")) == NULL)
         shell = (char*)"/bin/sh";
-    if (tcgetattr(master_tty_fd, &slave_tio) == -1) {
-        pts_fatal("tcgetattr");
-        return -1;
-    }
 
     memset(&sia, 0, sizeof(struct sigaction));
     sigemptyset(&sia.sa_mask);
@@ -79,8 +75,6 @@ int create_pts(int* child_pid_ptr) {
         if ((slave_tty_fd = open(slave_tty_name, O_RDWR)) == -1)
             err_exit("open");
 
-        if (tcsetattr(slave_tty_fd, TCSANOW, &slave_tio) == -1)
-            err_exit("tcsetattr");
         if (dup2(slave_tty_fd, STDIN_FILENO) == -1)
             err_exit("dup2");
         if (dup2(slave_tty_fd, STDOUT_FILENO) == -1)

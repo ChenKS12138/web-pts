@@ -1,15 +1,11 @@
 #include "pts.h"
-#include <iostream>
 #include <nan.h>
 
-using Nan::AsyncWorker;
-using Nan::Callback;
 using Nan::GetFunction;
 using Nan::New;
 using Nan::Set;
 using Nan::To;
 using v8::FunctionTemplate;
-using v8::Number;
 using v8::String;
 
 extern char PtsErrMsg[PTS_ERR_MSG_SIZE];

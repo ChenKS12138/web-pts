@@ -10,11 +10,9 @@
 #include <cstring>
 #include <fcntl.h>
 #include <netdb.h>
-#include <poll.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <termios.h>
 #include <unistd.h>
 
 #ifndef PTS_ERR_MSG_SIZE
